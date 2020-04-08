@@ -1,2 +1,3 @@
-# sci-eco.github.io
+# scieco
+
 Blog for Scieco
