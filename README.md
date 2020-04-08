@@ -6,7 +6,7 @@ Blog for Scieco
 ## Setup
 
 - Install `jekyll >= 4`
-- Install `ruby >= 2.6.5p114`
+- Install `ruby >= 2.6.5`
 
 ```bash
 jekyll serve
