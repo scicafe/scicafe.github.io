@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="{{ site.description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.title }}</title>
+
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/normalize.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/solo.css">
+  <link rel="stylesheet" href="{{site.baseurl}}/css/master.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/syntax.css">
+  {% if site.font-awesome-include %}<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">{% endif %}
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/rrssb.css">
+
+  <script src="{{ site.baseurl }}/scripts/jquery.js"></script>
+  <link rel="canonical" href="{{ site.url }}" />
+</head>
+<body>
+
+  <!---Nav Bar--------------------------------------->
+
+      {% include main-nav.html %}
+
+   <!--x-Nav Bar-x------------------------------------->
+
+  <article>
+   <div class="container">
+     <span class="article-title">{{ page.title }}</span>
+     <br>
+     <br>
+     <span class="article-des">{{ page.description}}</span>
+     <br>
+     <br>
+     <br>
+     <div class="article-info">
+       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+       <span class="article-date">{{ page.date | date: date_format }}</span>
+       <span class="article-rt">{{ page.read-time }}</span>
+       <br>
+       <span class="article-con">{{ page.contributors }}</span>
+     </div>
+       <hr>
+    <div class="content">
+      {{ content }}
+    </div>
+
+    </div>
+  </article>
+<script src="{{ site.baseurl }}/scripts/rrssb.min.js"></script>
+</body>
+</html>

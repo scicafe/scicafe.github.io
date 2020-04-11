@@ -1,0 +1,44 @@
+
+/*-----Title font-----*/
+@font-face {
+  font-family: Play-reg;
+  src:url('../fonts/Play/Play-Regular.ttf');
+}
+
+
+/*-----RPrimary font-----*/
+@font-face {
+  font-family: Lato-reg;
+  src:url('../fonts/Lato/Lato-Regular.ttf');
+}
+
+/*-----RSecondary font-----*/
+@font-face {
+  font-family: Lato-light;
+  src:url('../fonts/Lato/Lato-Light.ttf');
+}
+
+/*-----R3rd font-----*/
+@font-face {
+  font-family: Lato-thin;
+  src:url('../fonts/Lato/Lato-Thin.ttf');
+}
+
+/*-----OS Paragrphy font-----*/
+@font-face {
+  font-family: OpenSans-thin;
+  src:url('../fonts/Open_Sans/OpenSans-Light.ttf');
+}
+
+/*-----OS Paragrphy font-----*/
+@font-face {
+  font-family: OpenSans-reg;
+  src:url('../fonts/Open_Sans/OpenSans-Regular.ttf');
+}
+
+
+/*-----OS micro font-----*/
+@font-face {
+  font-family: OpenSans-semibold;
+  src:url('../fonts/Open_Sans/OpenSans-SemiBold.ttf');
+}

@@ -1,27 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="{{ site.description }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ site.title }}</title>
-  <link rel="stylesheet" href="{{ site.baseurl }}/css/normalize.css">
-  <link rel="stylesheet" href="{{ site.baseurl }}/css/solo.css">
-  <link rel="stylesheet" href="{{ site.baseurl }}/css/syntax.css">
-  {% if site.font-awesome-include %}<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">{% endif %}
-  <link rel="stylesheet" href="{{ site.baseurl }}/css/rrssb.css">
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sci-eco blog</title>
+    <link rel="stylesheet" href="{{site.baseurl}}/css/master.css">
+    <link rel="stylesheet" href="{{site.baseurl}}/css/all.css">
+  </head>
+  <body>
 
-  <script src="{{ site.baseurl }}/scripts/jquery.js"></script>
-  <link rel="canonical" href="{{ site.url }}" />
-</head>
-<body>
-  <article>
-   <div class="container">
-    <h1><a href="./">{{ site.tag_text }}</a></h1>
-    {{ content }}
-    </div>
-  </article>
-<script src="{{ site.baseurl }}/scripts/rrssb.min.js"></script>
-</body>
+
+<!---Nav Bar--------------------------------------->
+
+    {% include main-nav.html %}
+
+
+
+ <!--x-Nav Bar-x------------------------------------->
+
+
+{{content}}
+
+
+<!---Post container---------------------------------->
+
+  {% if site.paginate %}
+    {% assign posts = paginator.posts %}
+  {% else %}
+    {% assign posts = site.posts %}
+  {% endif %}
+
+
+  {%- if posts.size > 0 -%}
+    {%- if page.list_title -%}
+      <h2 class="post-list-heading">{{ page.list_title }}</h2>
+    {%- endif -%}
+    <ul class="post-list">
+      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      {%- for post in posts -%}
+      <li class="post-cont">
+
+        <h3>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            {{ post.title | escape }}
+          </a>
+        </h3>
+        <p class="post-description">{{ post.description }}</p>
+        <span class="post-meta">{{ post.date | date: date_format }}</span>
+        <span class="post-read-time">{{ post.read-time }}</span>
+
+
+        {%- if site.show_excerpts -%}
+          {{ post.excerpt }}
+        {%- endif -%}
+      </li>
+      {%- endfor -%}
+    </ul>
+
+    {% if site.paginate %}
+      <div class="pager">
+        <ul class="pagination">
+        {%- if paginator.previous_page %}
+          <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
+        {%- else %}
+          <li><div class="pager-edge">•</div></li>
+        {%- endif %}
+          <li><div class="current-page">{{ paginator.page }}</div></li>
+        {%- if paginator.next_page %}
+          <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
+        {%- else %}
+          <li><div class="pager-edge">•</div></li>
+        {%- endif %}
+        </ul>
+      </div>
+    {%- endif %}
+
+    {%- endif -%}
+
+<!---x-Post container-x------------------------------------->
+
+
+
+
+
+  </body>
 </html>
