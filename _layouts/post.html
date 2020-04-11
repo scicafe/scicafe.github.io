@@ -11,10 +11,19 @@
   <link rel="stylesheet" href="{{ site.baseurl }}/css/solo.css">
   <link rel="stylesheet" href="{{site.baseurl}}/css/master.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/css/syntax.css">
-  {% if site.font-awesome-include %}<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">{% endif %}
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/misc.css">
+  <!-- {% if site.font-awesome-include %}<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">{% endif %} -->
+
+  <!-- Add Font Awesome -->
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/css/rrssb.css">
 
-  <script src="{{ site.baseurl }}/scripts/jquery.js"></script>
+  <!-- <script src="{{ site.baseurl }}/scripts/jquery.js"></script> -->
+  <!-- add jquery -->
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
   <link rel="canonical" href="{{ site.url }}" />
 </head>
 <body>
@@ -49,5 +58,6 @@
     </div>
   </article>
 <script src="{{ site.baseurl }}/scripts/rrssb.min.js"></script>
+<script src="{{ site.baseurl }}/scripts/highlight.js"></script>
 </body>
 </html>
