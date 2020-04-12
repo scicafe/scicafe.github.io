@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="{{ site.baseurl }}/css/solo.css">
   <link rel="stylesheet" href="{{site.baseurl}}/css/master.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/css/syntax.css">
-  <link rel="stylesheet" href="{{ site.baseurl }}/css/misc.css">
+  <link rel="stylesheet" href="../css/misc.css">
   <!-- {% if site.font-awesome-include %}<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">{% endif %} -->
 
   <!-- Add Font Awesome -->
@@ -28,12 +28,15 @@
 </head>
 <body>
 
-  <!---Nav Bar--------------------------------------->
+ <!---Nav Bar--------------------------------------->
 
       {% include main-nav.html %}
 
    <!--x-Nav Bar-x------------------------------------->
 
+   <br>
+   <br>
+   <br>
   <article>
    <div class="container">
      <span class="article-title">{{ page.title }}</span>
@@ -51,6 +54,7 @@
        <span class="article-con">{{ page.contributors }}</span>
      </div>
        <hr>
+       <br>
     <div class="content">
       {{ content }}
     </div>
