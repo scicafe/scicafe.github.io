@@ -7,14 +7,25 @@ html,body{
   margin: 0%;
   box-sizing: border-box;
   overflow-x: hidden;
+  background-color: #fdfdfd;
 }
+
+footer {
+  height: 40px;
+  background-color: #dbdbdf;
+  text-align: center;
+  font-family: OpenSans-reg;
+  font-size: 12px;
+}
+
 
 :root{
 
   /*---Theme colors---*/
 
-  --text-head: #1d1d1f;
-  --text-micro: #6e6e73;
+  --text-head: #797979;
+  --text-micro: #a0a0a0;
+  --text-des: #666;
   --red: #FF3636;
   --border-gray: #dbdbdf;
 
@@ -36,7 +47,7 @@ a{
 
 .about {
     max-width: 625px;
-    margin: 5% auto;
+    margin: 10% auto;
     padding: 0 0.75rem;
   }
 .about .h1 {
@@ -46,7 +57,7 @@ a{
   position: relative;
 }
 .about p{
-  color: var(--text-gray);
+  color: var(--text-des);
   font-size: 16px;
   font-family: OpenSans-reg;
   position: relative;
@@ -88,69 +99,98 @@ border-color: var(--border-gray);
   filter: grayscale(90%);
 }
 
+.we-are .a-info .a-name  {
+  color: var(--text-head)
+}
+
+.we-are .a-info .a-role  {
+  color: var(--text-des)
+}
+
+
+
 
 
 /* ----------Nav bar----------*/
 
-header {
-  color: var(--text-gray)
-  max-width: 1200px;
-  position: relative;
-  margin: 0px auto;
-  padding: 0px;
-  background: white;
-  box-sizing: border-box;
-  border-bottom: 1px solid;
-  border-color: var(--border-gray)
+.site-header {
+  background-color: white;
+  opacity: 0.75;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  height: 56px;
+  width: 100%;
+  z-index: 50;
+  font-family: OpenSans-reg;
+  font-size: 16px;
+  color: var(--text-des);
+  box-shadow: 0 2px 20px -12px #757575;
 }
 
-.logo {
-  font-size: 30px;
-  line-height: 60px;
-  padding: 0 0 0 310px;
-  font-family: Play-reg;
-  text-align: center;
-  box-sizing: border-box;
-  float: left;
-  text-decoration: none;
+.wrapper {
+  max-width: calc(800px - (50px * 2));
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 50px;
+  padding-left: 50px;
 }
+
+.site-nav {
+  float: right;
+  line-height: 56px;
+}
+
+.trigger {
+line-height: 56px;
+}
+
+.sit-nav .page-link {
+  line-height: 10px;
+}
+
+.site-nav .page-link:not(:first-child) {
+    margin-left: 36px;
+  }
+
+.header-bar {
+      left: 0px;
+      top: 0px;
+      position: relative;
+      font-size: 20px;
+      display: block;
+      opacity: 0.75;
+      width: 100%;
+      text-align: center;
+      padding-top: 80px;
+      line-height: 3em;
+      z-index: 25;
+  }
 
 
 nav {
   display: flex;
   float: right;
 }
-.clearfix {
-  clear: both;
+
+
+
+
+h1 {
+  font-family: OpenSans-reg;
+  letter-spacing: -2px;
+  margin: 60px 0 0 0;
+  padding: 0;
+  font-size: 75px;
+  color: var(--red);
 }
-nav ul
-{
+
+.header-bar .tagline {
+  font-family: OpenSans-reg;
   margin: 0;
-  padding: 15px 290px 0px 0px;
-  display: flex;
-}
-nav ul li
-{
-  list-style: none;
-  font-family: Lato-reg;
-  font-size: 16px;
-}
-
-nav ul li:hover a{
-  color: var(--red)
-}
-
-nav ul li:active a{
-  color: var(--red)
-}
-
-
-nav ul li a
-{
-  display: block;
-  margin: 10px 0;
-  padding: 0px 24px;
-  text-decoration: none;
+  padding: 0;
+  font-size: 25px;
+  color: var(--text-des);
 }
 
 .menu-toggle {
@@ -174,24 +214,6 @@ nav ul li a
   }
 
 
-  .logo {
-    font-size: 30px;
-    line-height: 80px;
-    padding: 0 20px;
-    font-family: Play-reg;
-    text-align: center;
-    box-sizing: border-box;
-    float: left;
-    text-decoration: none;
-  }
-
-  nav ul
-  {
-    margin: 0;
-    padding: 10px 0px 0px 0px;
-    display: flex;
-  }
-
   nav
   {
     display: none;
@@ -213,14 +235,20 @@ nav ul li a
 /*------------Post----------------*/
 
 .post-cont{
-  padding: 10px 0px 30px 0px;
+  padding: 30px 0px 30px 0px;
+  border-top: 1px solid;
   border-bottom: 1px solid;
   border-color: var(--border-gray);
 }
 
+.post-sub {
+  line-height: 10px;
+}
+
+
 
 .post-list{
-  margin: 5% 20%;
+  margin: 2% 27%;
   padding:0px;
   list-style-type: none;
 }
@@ -240,9 +268,11 @@ nav ul li a
 }
 
 .post-list .post-link{
-  font-size: 24px;
-  font-family: OpenSans-semibold;
+  font-size: 40px;
+  font-family: OpenSans-reg;
+  letter-spacing: -2px;
   color: var(--text-head);
+  line-height: 40px;
 }
 
 .post-list .post-link:hover {
@@ -251,11 +281,12 @@ nav ul li a
 
 
 .post-list .post-description {
-  color: var(--text-gray);
-  padding: 0px 0px 4px;
+  color: var(--text-des);
+  padding: 0px 0px 0px;
   font-size: 16px;
   font-family: OpenSans-reg;
   position: relative;
+  line-height: 16px;
 }
 
 
@@ -282,14 +313,10 @@ nav ul li a
   font-size: 40px;
   font-family: OpenSans-semibold;
   position: relative;
+  letter-spacing: -2px;
 }
 
-.article-des {
-  color: var(--text-gray);
-  font-size: 16px;
-  font-family: OpenSans-reg;
-  position: relative;
-}
+
 
 
 .article-rt {

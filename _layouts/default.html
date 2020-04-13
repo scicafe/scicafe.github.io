@@ -10,14 +10,19 @@
   </head>
   <body>
 
-
 <!---Nav Bar--------------------------------------->
 
     {% include main-nav.html %}
 
-
-
  <!--x-Nav Bar-x------------------------------------->
+<div class="site-title">
+<div class="header-bar">
+ <h1>scieco</h1>
+ <span class="tagline">tagline here</span>
+ <br>
+ <br>
+ </div>
+</div>
 
 
 {{content}}
@@ -41,14 +46,18 @@
       {%- for post in posts -%}
       <li class="post-cont">
 
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        <p class="post-description">{{ post.description }}</p>
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <span class="post-read-time">{{ post.read-time }}</span>
+
+        <div class="post-sub">
+          <h3>
+            <a class="post-link" href="{{ post.url | relative_url }}">
+              {{ post.title | escape }}
+            </a>
+          </h3>
+          <span class="post-meta">{{ post.date | date: date_format }}</span>
+          <span class="post-read-time">{{ post.read-time }}</span>
+          <p class="post-description">{{ post.description }}</p>
+
+        </div>
 
 
         {%- if site.show_excerpts -%}
@@ -80,8 +89,11 @@
 
 <!---x-Post container-x------------------------------------->
 
+<!---Footer--------------------------------------->
 
+    {% include footer.html %}
 
+ <!--x-Footer-x------------------------------------->
 
 
   </body>
