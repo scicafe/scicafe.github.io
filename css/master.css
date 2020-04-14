@@ -11,11 +11,12 @@ html,body{
 }
 
 footer {
-  height: 40px;
-  background-color: #dbdbdf;
+  height: 15px;
+  background-color: #293043;
   text-align: center;
   font-family: OpenSans-reg;
-  font-size: 12px;
+  font-size: 10px;
+  color : #dedbe6;
 }
 
 
@@ -27,6 +28,7 @@ footer {
   --text-micro: #a0a0a0;
   --text-des: #666;
   --red: #FF3636;
+  --blue: #293043;
   --border-gray: #dbdbdf;
 
 }
@@ -179,17 +181,17 @@ nav {
 h1 {
   font-family: OpenSans-reg;
   letter-spacing: -2px;
-  margin: 60px 0 0 0;
+  margin: 60px 0 10px 0;
   padding: 0;
-  font-size: 75px;
-  color: var(--red);
+  font-size: 100px;
+  color: #c52e35;
 }
 
 .header-bar .tagline {
   font-family: OpenSans-reg;
   margin: 0;
   padding: 0;
-  font-size: 25px;
+  font-size: 30px;
   color: var(--text-des);
 }
 
@@ -276,7 +278,7 @@ h1 {
 }
 
 .post-list .post-link:hover {
-  color: var(--red)
+  color: var(--blue)
 }
 
 
@@ -309,14 +311,21 @@ h1 {
 /*------------Article----------------*/
 
 .article-title {
-  color: var(--text-head);
-  font-size: 40px;
+  color: #293043;
+  font-size: 50px;
   font-family: OpenSans-semibold;
   position: relative;
   letter-spacing: -2px;
 }
 
 
+.article-des {
+  color: #676767;
+  font-size: 21px;
+  font-family: OpenSans-reg;
+  margin: 0;
+  padding: 0;
+}
 
 
 .article-rt {

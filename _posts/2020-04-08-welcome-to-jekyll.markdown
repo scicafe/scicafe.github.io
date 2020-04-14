@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "welcome to Jekyll!"
+title:  "Getting Started with Jekyll"
 date:   8 April 2020
 categories: jekyll update
 read-time: 5 mins read

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Welcome to GCP!"
+title:  "Welcome to a Good, Clean Blog"
 date:   8 April 2020
 categories: good clean
 read-time: 5 mins read

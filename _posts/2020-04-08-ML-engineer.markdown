@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "ML engineer"
+title:  "Organizing a Machine Learning Project"
 date:   8 April 2020
 categories: good clean
 read-time: 5 mins read

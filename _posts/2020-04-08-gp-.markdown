@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "GP"
+title:  "Introduction to Gaussian Processes"
 date:   8 April 2020
 categories: good clean
 read-time: 5 mins read
