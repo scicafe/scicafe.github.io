@@ -29,6 +29,9 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: scieco
 github_username:  sci-eco
 
+# syntax highlighting
+highlighter: rouge
+
 # Build settings
 theme: minima
 plugins:
