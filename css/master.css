@@ -196,25 +196,10 @@ h1 {
   color: var(--text-des);
 }
 
-.menu-toggle {
-  display: none;
-}
+
 
 @media only screen and (max-width:750px)
 {
-
-
-  .menu-toggle {
-    display: block;
-    width: 36px;
-    height: 36px;
-    margin: 30px 20px;
-    float: right;
-    cursor: pointer;
-    text-align: center;
-    font-size: 24px;
-    color: var(--text-gray)
-  }
 
 
   nav
@@ -299,6 +284,14 @@ h1 {
     margin: 5% 5%;
     padding:0px;
     list-style-type: none;
+  }
+
+  .post-list .post-link{
+    font-size: 40px;
+    font-family: OpenSans-reg;
+    letter-spacing: -1.5px;
+    color: var(--text-head);
+    line-height: 44px;
   }
 
 
