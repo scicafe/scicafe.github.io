@@ -38,7 +38,6 @@ footer {
 
 a{
   text-decoration: none;
-  color: var(--text-gray);
 }
 
 .flex-row{
@@ -129,6 +128,11 @@ border-color: var(--border-gray);
   font-size: 16px;
   color: var(--text-des);
   box-shadow: 0 2px 20px -12px #757575;
+}
+
+.site-header a{
+  text-decoration: none;
+  color: var(--text-gray);
 }
 
 .wrapper {
