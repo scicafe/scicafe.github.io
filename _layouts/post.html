@@ -38,22 +38,25 @@
    <br>
    <br>
   <article>
+    <div class="container-head">
+      <span class="article-title">{{ page.title }}</span>
+      <br>
+      <br>
+      <span class="article-des">{{ page.description}}</span>
+      <br>
+      <br>
+      <br>
+      <div class="article-info">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        <span class="article-date">{{ page.date | date: date_format }}</span>
+        <span class="article-rt">{{ page.read-time }}</span>
+        <br>
+        <span class="article-con">{{ page.contributors }}</span>
+      </div>
+        <hr>
+
+    </div>
    <div class="container">
-     <span class="article-title">{{ page.title }}</span>
-     <br>
-     <br>
-     <span class="article-des">{{ page.description}}</span>
-     <br>
-     <br>
-     <br>
-     <div class="article-info">
-       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-       <span class="article-date">{{ page.date | date: date_format }}</span>
-       <span class="article-rt">{{ page.read-time }}</span>
-       <br>
-       <span class="article-con">{{ page.contributors }}</span>
-     </div>
-       <hr>
        <br>
     <div class="content">
       {{ content }}

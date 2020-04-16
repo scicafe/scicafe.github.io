@@ -308,12 +308,19 @@ h1 {
 
 /*------------Article----------------*/
 
+.container-head {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 0.75rem;
+}
+
 .article-title {
   color: #293043;
   font-size: 50px;
   font-family: OpenSans-semibold;
   position: relative;
   letter-spacing: -2px;
+  line-height: 65px;
 }
 
 
