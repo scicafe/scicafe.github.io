@@ -8,6 +8,7 @@ description:
    Whatever you want to communicate here can be read easily, and without distraction.
 permalink: :title
 contributors: Suriyadeepan, Naveen Prasanth
+toc: true
 ---
 
 ## A Jekyll template for publishing single-page websites and articles that are incredibly readable and fully responsive

@@ -366,3 +366,54 @@ h1 {
   position: relative;
   text-transform: uppercase;
 }
+
+
+/*----x-------Article---------x------*/
+
+
+
+/*------------TOC----------------*/
+
+
+.section-nav {
+  color: var(--text-micro);
+  position: fixed;
+  float: left;
+  list-style: circle;
+  margin-top: -10%;
+  margin-left: 2%;
+  margin-right: 80%;
+  line-height: 20px;
+}
+
+
+.section-nav li{
+padding: 4px 0;
+}
+
+
+.toc-entry a{
+ color: var(--text-micro);
+ font-size: 16px;
+}
+
+.toc-entry:hover a{
+ text-decoration: none;
+ color: var(--blue);
+}
+
+.sublist {
+  list-style: none;
+}
+
+
+@media only screen and (max-width:750px) {
+
+  .section-nav {
+    display: none;
+  }
+
+}
+
+
+/*------x-----TOC----------x-----*/

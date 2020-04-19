@@ -8,6 +8,7 @@ description:
   Good clean read is set up with readability first in mind.
 permalink: :title
 contributors: Suriyadeepan, Naveen Prasanth
+toc: true
 ---
 
 ## A Jekyll template for publishing single-page websites and articles that are incredibly readable and fully responsive
