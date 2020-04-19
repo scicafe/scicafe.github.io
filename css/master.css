@@ -102,10 +102,14 @@ border-color: var(--border-gray);
 }
 
 .we-are .a-info .a-name  {
-  color: var(--text-head)
+  color: black;
 }
 
 .we-are .a-info .a-role  {
+  color: var(--text-des)
+}
+
+.we-are .a-info .social-link {
   color: var(--text-des)
 }
 
