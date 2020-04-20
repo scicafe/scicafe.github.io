@@ -379,32 +379,39 @@ h1 {
   color: var(--text-micro);
   position: fixed;
   float: left;
-  list-style: circle;
   margin-top: -10%;
   margin-left: 2%;
   margin-right: 80%;
   line-height: 20px;
 }
 
+.section-nav a{
+  color: var(--text-micro);
+  font-size: 16px;
+}
+
+
+.section-nav ul li{
+list-style: circle;
+}
+
+
+ul li:hover a{
+text-decoration: none;
+color: var(--blue);
+}
+
+
+
+
+
 
 .section-nav li{
-padding: 4px 0;
-}
-
-
-.toc-entry a{
- color: var(--text-micro);
- font-size: 16px;
-}
-
-.toc-entry:hover a{
- text-decoration: none;
- color: var(--blue);
-}
-
-.sublist {
   list-style: none;
+  padding: 4px 0;
 }
+
+
 
 
 @media only screen and (max-width:750px) {
