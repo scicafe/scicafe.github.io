@@ -11,15 +11,16 @@ contributors: Soham, Archana, Suriyadeepan
 toc: true
 ---
 
-<a href="https://colab.research.google.com/drive/1-xiwp2s1Oir8sNh-Utnj60yAtpjwDaUr?usp=sharing" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Guide to Quantization using the TensorFlow Model Optimization Toolkit
+## Guide to Quantization using the TensorFlow Model Optimization Toolkit
+
+<a href="https://colab.research.google.com/drive/1-xiwp2s1Oir8sNh-Utnj60yAtpjwDaUr?usp=sharing" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 TF's model optimization Toolkit (TFMOT) contains tools that you can use to quantize and prune your model for faster inference in edge devices.
 
 In this guide, we will see how to use TFMOT to quantize our model.
 
-## What is Quantization?: A Brief Introduction 
+### What is Quantization?: A Brief Introduction 
 Quantization is where we convert the weights of our model from high precision Floats, to low precision INT8 weights.
 
 ![Quantization - Neural Network Distiller](/images/quant.png)
@@ -31,7 +32,7 @@ Broadly, there are two kinds of quantization:
 
 INT8 weight quantization can reduce the size of the model by up to 4x. Moreover, if you use quantized weights and activations for inference, you can reduce your inference time as well.
 
-## How can we use Tensorflow Model Optimisation Toolkit?
+### How can we use Tensorflow Model Optimisation Toolkit?
 
 You can use TFMOT to quantize your model in two ways: Quantization Aware Training and Post Training Quantization using TFLite.
 
@@ -52,9 +53,9 @@ In this blog, we will explore weight quantization using both QAT and PTQ. The ob
 
 Let's get started!
 
-## Now let us get started: Setup and Installation
+### Setup and Installation
 
-First, we will need to install some packages. We will uninstall `tensorflow` and `tensorflow-gpu`. Instead, we will use the nightly version of TensorFlow ([issue](https://github.com/tensorflow/model-optimization/issues/368)). We also need to install the TFMOT package.
+We will uninstall `tensorflow` and `tensorflow-gpu`. Instead, we will use the nightly version of TensorFlow ([issue](https://github.com/tensorflow/model-optimization/issues/368)). We also need to install the TFMOT package.
 
 
 ```python
@@ -90,8 +91,8 @@ import numpy as np
 import time
 ```
 
-## First Step: Data Collection and Preprocessing
-Your Model is nothing without your data, let us look into an interesting dataset.We will use the [`deep_weeds`](https://www.tensorflow.org/datasets/catalog/deep_weeds) dataset available from `tfds`. The dataset contains 17,509 images of eight different weed species and a background class.
+### Data Collection and Preprocessing
+Your model is nothing without your data, let us look into an interesting dataset. We will use the [`deep_weeds`](https://www.tensorflow.org/datasets/catalog/deep_weeds) dataset available from `tfds`. The dataset contains 17,509 images of eight different weed species and a background class.
 
 Dataset Used: <i> deep weeds </i>
 
@@ -99,7 +100,7 @@ No of Images: <i> 17,509 </i>
 
 No of classes: <i> 8 +1(Negative)</i>
 
-![weed_images](images/tfmot.png)
+![weed_images](/images/tfmot.png)
 
 We will split the dataset in the ratio **8:1:1** for training, validation and testing sets. Below you can see the number of samples in each set.
 
@@ -132,7 +133,7 @@ for i, (image, label) in enumerate(train_data.take(6)):
 ```
 
 
-![png](/images/deep_weeds/deep_weeds_data.png)
+![png](/images/deep_weeds_data.png)
 
 
 Next we need to create a preprocessing function to preprocess our images. The preprocessing function is quite simple. It first converts the pixel values to float32. It then resizes the images to the shape that the MobileNetV2 model needs for input: (224, 224). Finally, it normalizes the image by dividing by 255.
@@ -152,9 +153,9 @@ validation_data=validation_data.map(preprocessing).shuffle(1024).batch(32)
 test_data=test_data.map(preprocessing).shuffle(1024).batch(32)
 ```
 
-## Step 2: Model Creation and Training
+### Model Creation and Training
 
-Now that we done with all the boring data part, let us jump right into model creation and into **"Quantization"!**
+Now that we are done with all the boring data part, let us jump right into model creation and Quantization!**
 
 The function in the cell below creates a model.
 
@@ -218,12 +219,9 @@ We got a testing accuracy of 81.09%. So let's fill that in our table
 |            | Quantization Aware Model         |          |      |
 |            | Post Training Quantization Model |          |      |
 
-## Step 3: Quantization Aware Training
+### Quantization Aware Training
 
-<.                                   ![download (4)](images/qat.png) 
-
-
-
+![QAT](/images/qat.png) 
 
 
 QAT works by emulating the quantization losses that happen after quantizing the model in the training process. This means that the model will be aware of the losses that happen after quantization and it will learn to overcome them.
@@ -290,8 +288,6 @@ print("Testing Accuracy:", quantization_aware_model_finetune.evaluate(test_data)
 
 Training with QAT helped to increase the accuracy of the network. 
 
-### But why does this happen?
-
 There are a few potential reasons for it:
 
 - Finetuning: Since we convert a previously trained model, we are in-effect, continuing the training of previously trained model. This can be a reason for the increase in accuracy.
@@ -345,7 +341,7 @@ print("Testing Accuracy:", quantization_aware_model_no_finetune.evaluate(test_da
 | quantization_aware_model_no_finetune | QAT Model Trained from Scratch     |  91.54%  |      |
 |                                      | Post Training Quantization Model   |          |      |
 
-![download (5)](images/modelsummary.png)
+![](/images/modelsummary.png)
 
 
 
@@ -706,9 +702,11 @@ print(quantization_aware_model_finetune.summary())
 
 </details>
 
-## Step 5:Quantization Inference
+### Quantization Inference
 
-So far, our model is still using Floating Point weights. To quantize them to INT8, we need to convert it to TFLite forma![Convert TFLite](images/conversion%20tflite.png)
+So far, our model is still using Floating Point weights. To quantize them to INT8, we need to convert it to TFLite format!
+
+[Convert TFLite](images/conversion%20tflite.png)
 
 
 
@@ -842,7 +840,7 @@ As you can see, there is very litle drop in accuracy from the quantized model an
 | `quantization_aware_tflite_model_no_finetune` | Scratch QAT model; TFLite Quantized   |  91.71%  |      | INT8             |
 |                                               | Post Training Quantization Model      |          |      |                  |
 
-## Step 6: Post Training Quantization
+### Post Training Quantization
 
 In the previous section, we quantized the model that was trained using QAT.
 
@@ -931,7 +929,7 @@ Since this model still uses the floating point weights, there is no accuracy dro
 | `normal_tflite_model_quantized`               | PTQ Model without QAT                 |  50.08%  |      | INT8             |
 | `normal_tflite_model`                         | TFLite Model without Quantization     |  81.21%  |      | FLOAT32          |
 
-## Step 7: Saving Models and More PTQ
+### Saving Models and More PTQ
 
 Let's save the models we trained and compare the file sizes.
 
@@ -992,7 +990,7 @@ with tfmot.quantization.keras.quantize_scope():
   loaded_model = tf.keras.models.load_model('quantization_aware_model_finetune.h5')
 ```
 
-## Step 8: Some other PTQ
+### Some other PTQ
 
 So far we have been using only the `DEFAULT` optimization method. TFLite also provides two other optimization schemes: **OPTIMIZE_FOR_LATENCY** and **OPTIMIZE_FOR_SIZE**.
 
@@ -1065,7 +1063,7 @@ with open("tflite_latency_optimized_quant_model.tflite", "wb") as f:
 
 So when using the `OPTIMIZE_FOR_SIZE` scheme, we don't see any changes in results. However, when using the `OPTIMIZE_FOR_LATENCY` scheme, the inference is slightly faster and there is no drop in accuracy.
 
-## Conclusion
+### Conclusion
 
 In this blog, we used the TensorFlow Model Optimization Toolkit to train our models with Quantization Aware training. Doing so helps to reduce the accuracy drop when we quantize our model for deployment. Our final results, look like this:
 
@@ -1083,7 +1081,7 @@ In this blog, we used the TensorFlow Model Optimization Toolkit to train our mod
 
 
 
-## Observations Made
+In short,
 
 - From the table we can see that models trained with QAT have very little to no loss in accuracy after being quantized. On the other hand, the accuracy of a non-QAT model drops by more than 30%!
 
