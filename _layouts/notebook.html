@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="{{ site.description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/normalize.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/solo.css">
+  <link rel="stylesheet" href="{{site.baseurl}}/css/master.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/syntax.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/all.css">
+  <link rel="stylesheet" href="../css/misc.css">
+  <!-- {% if site.font-awesome-include %}<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">{% endif %} -->
+
+  <!-- Add Font Awesome -->
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/rrssb.css">
+
+  <!-- <script src="{{ site.baseurl }}/scripts/jquery.js"></script> -->
+  <!-- add jquery -->
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+  <link rel="canonical" href="{{ site.url }}" />
+</head>
+<body>
+
+ <!---Nav Bar--------------------------------------->
+
+      {% include main-nav.html %}
+
+   <!--x-Nav Bar-x------------------------------------->
+
+
+   <br>
+   <br>
+   <br>
+  <article>
+    <div class="container-head" style="max-width : 55%">
+      <span class="article-title">{{ page.title }}</span>
+      <br>
+      <br>
+      <span class="article-des">{{ page.description}}</span>
+      <br>
+      <br>
+      <br>
+      <div class="article-info">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        <span class="article-date">{{ page.date | date: date_format }}</span>
+        <span class="article-rt">{{ page.read-time }}</span>
+        <br>
+        <span class="article-con">{{ page.contributors }}</span>
+      </div>
+        <hr>
+    </div>
+
+    <div>
+      <div class="section-nav" id="table-of-contents" style="display : none">
+        {% include toc.html html=content %}
+      </div>
+
+    <div class="container" style="max-width : 55%">
+       <br>
+    <div class="content">
+      {{ content }}
+    </div>
+
+    </div>
+  </article>
+
+
+
+
+
+<script src="{{ site.baseurl }}/scripts/rrssb.min.js"></script>
+<script src="{{ site.baseurl }}/scripts/highlighter.js"></script>
+<script src="{{ site.baseurl }}/scripts/hidenavbar.js"></script>
+
+
+
+
+
+<!---Footer--------------------------------------->
+
+    {% include footer.html %}
+
+ <!--x-Footer-x------------------------------------->
+
+
+
+</body>
+</html>
