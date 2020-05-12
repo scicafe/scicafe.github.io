@@ -3,7 +3,7 @@ layout: notebook
 title:  "Quantization Aware Training using TFMOT"
 date:   12 May 2020
 categories: TensorFlow TFMOT Quantization QAT TFLite
-read-time: 10 mins read
+read-time: 15 mins read
 description:
   Guide to Quantization and Quantization Aware Training using the TensorFlow Model Optimization Toolkit
 permalink: :title
@@ -1115,6 +1115,14 @@ In short,
 - Another observation we made was that quantized models are more than 3 times smaller than their unquantized counterparts. This is helpful when you want to deploy your model to memory constrained edge devices.
 
 - However, one thing that we did not talk about in this blog is the inference latency of our models, i.e., the time it takes to run inference. Another thing we did not talk about was how to perform post training INT8 weights and activation quantization. By doing this, we can use full INT8 during inference. We will see how to do this and measure the inference time for all the models in the next blog!
+
+### Resources
+
+You can find a stripped down version of this blog, the associated code and the models trained in [**Github**](https://github.com/scicafe/model-optimization).
+
+To try out the code used in this blog yourself, you can use the associated [**Colab Notebook**](https://github.com/scicafe/model-optimization)
+
+To learn more about the authors, check out the [**About**](/about.html) Section.
 
 ### References
 
