@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Guide to Quantization and Quantization Aware Training using the TensorFlow Model Optimization Toolkit"
-date:   11 May 2020
-categories: jekyll update
+date:   12 May 2020
+categories: TensorFlow TFMOT Quantization QAT TFLite
 read-time: 10 mins read
 description:
   In this guide we will see how you can use TFMOT to quantize your model.
@@ -22,7 +22,7 @@ In this guide, we will see how to use TFMOT to quantize our model.
 ## What is Quantization?: A Brief Introduction 
 Quantization is where we convert the weights of our model from high precision Floats, to low precision INT8 weights.
 
-![Quantization - Neural Network Distiller](images/quant.png)
+![Quantization - Neural Network Distiller](/images/quant.png)
 
 Broadly, there are two kinds of quantization:
 - **Weight quantization**: Here, the model is trained using floating point weights, but when the weights are saved, they are quantized to INT8. When performing inference, the weights are converted back to Floating point. This process results in a loss of precision of the weights which can reduce the accuracy of the model. This blog will show how to use TFMOT to do this, and how to prevent the loss in accuracy due to quantization.
@@ -35,7 +35,7 @@ INT8 weight quantization can reduce the size of the model by up to 4x. Moreover,
 
 You can use TFMOT to quantize your model in two ways: Quantization Aware Training and Post Training Quantization using TFLite.
 
-![TensorFlow Model Optimization Toolkit — Pruning API](images/tfmot.png)
+![TensorFlow Model Optimization Toolkit — Pruning API](/images/tfmot.png)
 
 In post training quantization (PTQ), we quantize the weights to 8 bits after the model has already been trained.
 
@@ -132,7 +132,7 @@ for i, (image, label) in enumerate(train_data.take(6)):
 ```
 
 
-![png](output_9_0.png)
+![png](/images/deep_weeds/deep_weeds_data.png)
 
 
 Next we need to create a preprocessing function to preprocess our images. The preprocessing function is quite simple. It first converts the pixel values to float32. It then resizes the images to the shape that the MobileNetV2 model needs for input: (224, 224). Finally, it normalizes the image by dividing by 255.
@@ -358,6 +358,9 @@ Remember that all QAT is doing is changing the layers of the model. How the mode
 
 ```python
 print(quantization_aware_model_finetune.summary())
+```
+<details>
+  <summary>Click to view model summary</summary>
 ```
 
     Model: "model"
@@ -700,6 +703,8 @@ print(quantization_aware_model_finetune.summary())
     __________________________________________________________________________________________________
     None
 
+
+</details>
 
 ## Step 5:Quantization Inference
 
@@ -1086,41 +1091,3 @@ In this blog, we used the TensorFlow Model Optimization Toolkit to train our mod
 
 - However, one thing that we did not talk about in this blog is the inference latency of our models, i.e., the time it takes to run inference. Another thing we did not talk about was how to perform post training INT8 weights and activation quantization. By doing this, we can use full INT8 during inference. We will see how to do this and measure the inference time for all the models in the next blog!
 
-
-```python
-!zip -r models.zip .
-```
-
-      adding: .config/ (stored 0%)
-      adding: .config/configurations/ (stored 0%)
-      adding: .config/configurations/config_default (deflated 15%)
-      adding: .config/config_sentinel (stored 0%)
-      adding: .config/.last_update_check.json (deflated 22%)
-      adding: .config/.last_opt_in_prompt.yaml (stored 0%)
-      adding: .config/logs/ (stored 0%)
-      adding: .config/logs/2020.05.04/ (stored 0%)
-      adding: .config/logs/2020.05.04/16.25.37.204320.log (deflated 54%)
-      adding: .config/logs/2020.05.04/16.25.01.622770.log (deflated 91%)
-      adding: .config/logs/2020.05.04/16.25.52.162617.log (deflated 54%)
-      adding: .config/logs/2020.05.04/16.25.32.984884.log (deflated 85%)
-      adding: .config/logs/2020.05.04/16.25.51.568729.log (deflated 55%)
-      adding: .config/logs/2020.05.04/16.25.19.382553.log (deflated 54%)
-      adding: .config/gce (stored 0%)
-      adding: .config/active_config (stored 0%)
-      adding: .config/.last_survey_prompt.yaml (stored 0%)
-      adding: .config/.metricsUUID (stored 0%)
-      adding: tflite_latency_optimized_quant_model.tflite (deflated 18%)
-      adding: quantization_aware_tflite_model_no_finetune.tflite (deflated 18%)
-      adding: tflite_size_optimized_quant_model.tflite (deflated 18%)
-      adding: quantization_aware_tflite_model_finetune.tflite (deflated 18%)
-      adding: .ipynb_checkpoints/ (stored 0%)
-      adding: main_model.h5 (deflated 12%)
-      adding: normal_tflite_model.tflite (deflated 7%)
-      adding: quantization_aware_model_finetune.h5 (deflated 10%)
-      adding: quantization_aware_model_no_finetune.h5 (deflated 10%)
-
-
-
-```python
-
-```
