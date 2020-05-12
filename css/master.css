@@ -269,7 +269,7 @@ h1 {
   font-family: OpenSans-reg;
   letter-spacing: -2px;
   color: var(--text-head);
-  line-height: 40px;
+  line-height: 1.2;
 }
 
 .post-list .post-link:hover {
