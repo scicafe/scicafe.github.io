@@ -127,7 +127,8 @@ blockquote p:last-child {
 }
 
 .footnote {
-  color: #444;
+  color: #c52e35;
+  font-weight : 500;
 }
 
 .center {
@@ -194,7 +195,7 @@ pre > code {
 }
 
 .container {
-  max-width: 56%;
+  max-width: 42%;
   margin: 0 auto;
   padding: 0 0.75rem;
 }
