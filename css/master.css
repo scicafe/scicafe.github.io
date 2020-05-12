@@ -27,6 +27,7 @@ footer {
 
   --text-head: #797979;
   --text-micro: #a0a0a0;
+  --text-author: #545252;
   --text-des: #666;
   --red: #FF3636;
   --blue: #293043;
@@ -282,7 +283,7 @@ h1 {
   font-size: 16px;
   font-family: OpenSans-reg;
   position: relative;
-  line-height: 16px;
+  line-height: 1.4;
 }
 
 
@@ -313,7 +314,7 @@ h1 {
 /*------------Article----------------*/
 
 .container-head {
-  max-width: 700px;
+  max-width: 56%;
   margin: 0 auto;
   padding: 0 0.75rem;
 }
@@ -359,12 +360,12 @@ h1 {
 }
 
 .article-con {
-  color: var(--text-micro);
+  color: var(--text-author);
   padding: 0px 20px 0px 0px;
   font-size: 14px;
   font-family: OpenSans-reg;
   position: relative;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 
