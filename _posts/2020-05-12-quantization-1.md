@@ -1,26 +1,22 @@
 ---
-layout: post
-title:  "Guide to Quantization and Quantization Aware Training using the TensorFlow Model Optimization Toolkit"
+layout: notebook
+title:  "Quantization Aware Training using TFMOT"
 date:   12 May 2020
 categories: TensorFlow TFMOT Quantization QAT TFLite
 read-time: 10 mins read
 description:
-  In this guide we will see how you can use TFMOT to quantize your model.
+  Guide to Quantization and Quantization Aware Training using the TensorFlow Model Optimization Toolkit
 permalink: :title
 contributors: Soham, Archana, Suriyadeepan
 toc: true
 ---
-
-
-## Guide to Quantization using the TensorFlow Model Optimization Toolkit
-
 <a href="https://colab.research.google.com/drive/1-xiwp2s1Oir8sNh-Utnj60yAtpjwDaUr?usp=sharing" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 TF's model optimization Toolkit (TFMOT) contains tools that you can use to quantize and prune your model for faster inference in edge devices.
 
 In this guide, we will see how to use TFMOT to quantize our model.
 
-### What is Quantization?: A Brief Introduction 
+### What is Quantization? A Brief Introduction 
 Quantization is where we convert the weights of our model from high precision Floats, to low precision INT8 weights.
 
 ![Quantization - Neural Network Distiller](/images/quant.png)
@@ -58,12 +54,13 @@ Let's get started!
 We will uninstall `tensorflow` and `tensorflow-gpu`. Instead, we will use the nightly version of TensorFlow ([issue](https://github.com/tensorflow/model-optimization/issues/368)). We also need to install the TFMOT package.
 
 
-```python
+{% highlight bash %}
 !pip uninstall -q -y tensorflow tensorflow-gpu
 !pip install -q tf-nightly
 !pip install -q tensorflow-model-optimization
-```
+{% endhighlight %}
 
+{% highlight console %}
     [33mWARNING: Skipping tensorflow-gpu as it is not installed.[0m
     [K     |████████████████████████████████| 521.9MB 36kB/s 
     [K     |████████████████████████████████| 460kB 46.1MB/s 
@@ -71,6 +68,7 @@ We will uninstall `tensorflow` and `tensorflow-gpu`. Instead, we will use the ni
     [K     |████████████████████████████████| 174kB 7.8MB/s 
     [K     |████████████████████████████████| 296kB 15.7MB/s 
     [?25h
+{% endhighlight %}
 
 Next we need to import the packages we need.
 
@@ -79,7 +77,7 @@ We will use the MobileNetV2 model in this example, so we need to import that.
 We will also fetch a dataset from `tensorflow_datasets` to train our model. Finally, we will use `matplotlib` for plotting and `numpy` for handling arrays.
 
 
-```python
+{% highlight python %}
 import tensorflow as tf
 from tensorflow.keras.applications import MobileNetV2
 import tensorflow_model_optimization as tfmot
@@ -89,7 +87,7 @@ import tensorflow_datasets as tfds
 import matplotlib.pyplot as plt
 import numpy as np
 import time
-```
+{% endhighlight %}
 
 ### Data Collection and Preprocessing
 Your model is nothing without your data, let us look into an interesting dataset. We will use the [`deep_weeds`](https://www.tensorflow.org/datasets/catalog/deep_weeds) dataset available from `tfds`. The dataset contains 17,509 images of eight different weed species and a background class.
@@ -105,7 +103,7 @@ No of classes: <i> 8 +1(Negative)</i>
 We will split the dataset in the ratio **8:1:1** for training, validation and testing sets. Below you can see the number of samples in each set.
 
 
-```python
+{% highlight python %}
 train_data, validation_data, test_data=tfds.load("deep_weeds",
                                                  split=["train[:80%]", "train[80%:90%]", "train[90%:]"],
                                                  as_supervised=True)
@@ -113,24 +111,25 @@ train_data, validation_data, test_data=tfds.load("deep_weeds",
 print("Number of Training Samples:", int(tf.data.experimental.cardinality(train_data)))
 print("Number of Validation Samples:", int(tf.data.experimental.cardinality(validation_data)))
 print("Number of Testing Samples:", int(tf.data.experimental.cardinality(test_data)))
-```
+{% endhighlight %}
 
+{% highlight python %}
     Number of Training Samples: 14007
     Number of Validation Samples: 1751
     Number of Testing Samples: 1751
+{% endhighlight %}
 
 
 Let's plot some of the images from the training set.
 
 
-```python
+{% highlight python %}
 plt.figure(figsize=(12,12))
 for i, (image, label) in enumerate(train_data.take(6)):
     plt.subplot(3, 2, i+1)
     plt.imshow(image)
     plt.title(int(label))
-
-```
+{% endhighlight %}
 
 
 ![png](/images/deep_weeds_data.png)
@@ -141,7 +140,7 @@ Next we need to create a preprocessing function to preprocess our images. The pr
 We also create batches of 32 of all our sets. This will help us when training later on.
 
 
-```python
+{% highlight python %}
 def preprocessing(image, label):
     image = tf.cast(image, tf.float32)
     image=tf.image.resize(image, (224, 224))
@@ -151,7 +150,7 @@ def preprocessing(image, label):
 train_data=train_data.map(preprocessing).shuffle(1024).batch(32)
 validation_data=validation_data.map(preprocessing).shuffle(1024).batch(32)
 test_data=test_data.map(preprocessing).shuffle(1024).batch(32)
-```
+{% endhighlight %}
 
 ### Model Creation and Training
 
@@ -162,7 +161,7 @@ The function in the cell below creates a model.
 We will use a Global Average Pooling layer after the MobileNet output. This will be followed by two fully connected layers and an output layer with 9 neurons and a softmax activation function.
 
 
-```python
+{% highlight python %}
 def create_model(fine_tune=True):
     base_model=MobileNetV2(input_shape=(224, 224, 3), include_top=False, weights='imagenet')
     
@@ -176,12 +175,12 @@ def create_model(fine_tune=True):
     model=keras.Model(inputs=base_model.input, outputs=x)
 
     return model
-```
+{% endhighlight %}
 
 We will use transfer learning to train the model, so we freeze the layers of the base model. We also use Early Stopping to monitor the validation loss. 
 
 
-```python
+{% highlight python %}
 # Train the digit classification model
 model=create_model(fine_tune=False)
 model.compile(optimizer='adam',
@@ -193,7 +192,7 @@ callback=keras.callbacks.EarlyStopping(monitor='val_loss', patience=2, mode='aut
 model.fit(train_data, validation_data=validation_data, epochs=20, callbacks=[callback])
 
 print("Testing Accuracy:", model.evaluate(test_data)[1])
-```
+{% endhighlight %}
 
     Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/mobilenet_v2/mobilenet_v2_weights_tf_dim_ordering_tf_kernels_1.0_224_no_top.h5
     9412608/9406464 [==============================] - 0s 0us/step
@@ -243,7 +242,7 @@ Furthermore, the training is better if you use a smaller learning rate. I have s
 The rest of the model compiling and fitting logic remains the same
 
 
-```python
+{% highlight python %}
 quantization_aware_model_finetune=tfmot.quantization.keras.quantize_model(model)
 
 quantization_aware_model_finetune.compile(optimizer=tf.keras.optimizers.Adam(1e-4),
@@ -254,8 +253,9 @@ callback=keras.callbacks.EarlyStopping(monitor='val_loss', patience=2, mode='aut
 quantization_aware_model_finetune.fit(train_data, validation_data=validation_data, epochs=20, callbacks=[callback])
 
 print("Testing Accuracy:", quantization_aware_model_finetune.evaluate(test_data)[1])
-```
+{% endhighlight %}
 
+{% highlight console %}
     Epoch 1/20
     438/438 [==============================] - 185s 423ms/step - loss: 1.1563 - accuracy: 0.6048 - val_loss: 0.8373 - val_accuracy: 0.6962
     Epoch 2/20
@@ -279,6 +279,8 @@ print("Testing Accuracy:", quantization_aware_model_finetune.evaluate(test_data)
     55/55 [==============================] - 6s 108ms/step - loss: 0.2877 - accuracy: 0.9098
     Testing Accuracy: 0.9097658395767212
 
+{% endhighlight %}
+
 
 | Model Name                          | Model Type                         | Accuracy | Size |
 | ----------------------------------- | ---------------------------------- | :------: | :--: |
@@ -298,7 +300,7 @@ There are a few potential reasons for it:
 Previously, we finetuned the model, and while that is the preferend way to use QAT, it is not necessary to do that. In the cell below we train a model from scratch. We will refer to this model as `quantization_aware_model_no_finetune`.
 
 
-```python
+{% highlight python %}
 quantization_aware_model_no_finetune=tfmot.quantization.keras.quantize_model(create_model(fine_tune=False))
 
 quantization_aware_model_no_finetune.compile(optimizer=tf.keras.optimizers.Adam(1e-4),
@@ -309,8 +311,9 @@ callback=keras.callbacks.EarlyStopping(monitor='val_loss', patience=2, mode='aut
 quantization_aware_model_no_finetune.fit(train_data, validation_data=validation_data, epochs=20, callbacks=[callback])
 
 print("Testing Accuracy:", quantization_aware_model_no_finetune.evaluate(test_data)[1])
-```
+{% endhighlight %}
 
+{% highlight console %}
     Epoch 1/20
     438/438 [==============================] - 185s 422ms/step - loss: 1.1272 - accuracy: 0.6096 - val_loss: 0.7365 - val_accuracy: 0.7430
     Epoch 2/20
@@ -330,6 +333,7 @@ print("Testing Accuracy:", quantization_aware_model_no_finetune.evaluate(test_da
     55/55 [==============================] - 6s 115ms/step - loss: 0.2798 - accuracy: 0.9155
     Testing Accuracy: 0.9154768586158752
 
+{% endhighlight %}
 
 
 
@@ -352,12 +356,13 @@ Remember that all QAT is doing is changing the layers of the model. How the mode
 
 
 
-```python
+{% highlight python %}
 print(quantization_aware_model_finetune.summary())
-```
+{% endhighlight %}
+
 <details>
   <summary>Click to view model summary</summary>
-```
+{% highlight console %}
 
     Model: "model"
     __________________________________________________________________________________________________
@@ -699,6 +704,8 @@ print(quantization_aware_model_finetune.summary())
     __________________________________________________________________________________________________
     None
 
+{% endhighlight %}
+
 
 </details>
 
@@ -713,13 +720,14 @@ So far, our model is still using Floating Point weights. To quantize them to INT
 We can use the below code to do that. Setting the `converter.optimization` to `tf.lite.Optimize.DEFAULT` is what converts the weight to INT8. If you do not specify that line, then the model will be converted to TFLite format, but it will still use Floating Point weights.
 
 
-```python
+{% highlight python %}
 converter = tf.lite.TFLiteConverter.from_keras_model(quantization_aware_model_finetune)
 converter.optimizations = [tf.lite.Optimize.DEFAULT]
 
 quantization_aware_tflite_model_finetune = converter.convert()
-```
+{% endhighlight %}
 
+{% highlight console %}
     WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow/python/training/tracking/tracking.py:105: Network.state_updates (from tensorflow.python.keras.engine.network) is deprecated and will be removed in a future version.
     Instructions for updating:
     This property should not be used in TensorFlow 2.0, as updates are applied automatically.
@@ -731,25 +739,24 @@ quantization_aware_tflite_model_finetune = converter.convert()
 
 
     INFO:tensorflow:Assets written to: /tmp/tmphrg7qvk3/assets
-
-
     INFO:tensorflow:Assets written to: /tmp/tmphrg7qvk3/assets
+{% endhighlight %}
 
 
 We can use the same steps to quantize the model that we trained from scratch.
 
 
-```python
+{% highlight python %}
 converter = tf.lite.TFLiteConverter.from_keras_model(quantization_aware_model_no_finetune)
 converter.optimizations = [tf.lite.Optimize.DEFAULT]
 
 quantization_aware_tflite_model_no_finetune = converter.convert()
-```
+{% endhighlight %}
 
+{% highlight console %}
     INFO:tensorflow:Assets written to: /tmp/tmp4qbncqsm/assets
-
-
     INFO:tensorflow:Assets written to: /tmp/tmp4qbncqsm/assets
+{% endhighlight %}
 
 
 To perform inference using TFLite, we can use the helper function below. Using TFLite, the we can run inference only one at a time. So running this will take some time.
@@ -757,7 +764,7 @@ To perform inference using TFLite, we can use the helper function below. Using T
 The function was adapted from [here](https://www.tensorflow.org/model_optimization/guide/quantization/training_example).
 
 
-```python
+{% highlight python %}
 def evaluate_model(interpreter):
     input_index = interpreter.get_input_details()[0]["index"]
     output_index = interpreter.get_output_details()[0]["index"]
@@ -784,12 +791,12 @@ def evaluate_model(interpreter):
             count+=1
 
     return accuracy/count, inference_time/count
-```
+{% endhighlight %}
 
 Below, we can check the accuracy of the model after converting to TFLite with INT8 weights.
 
 
-```python
+{% highlight python %}
 interpreter = tf.lite.Interpreter(model_content=quantization_aware_tflite_model_finetune)
 interpreter.allocate_tensors()
 
@@ -797,10 +804,12 @@ test_accuracy, inference_time = evaluate_model(interpreter)
 
 print(f'Test accuracy: {test_accuracy*100}%' )
 print(f'Average Inference Time per sample {inference_time} sec')
-```
+{% endhighlight %}
 
+{% highlight console %}
     Test accuracy: 90.97658480868076%
     Average Inference Time per sample 0.930652964530435 sec
+{% endhighlight %}
 
 
 I have added another column to the table which specifies the weight type. Remember that the weigths in the TFLite model are stored using INT8 and then converted to Float32 during inference.
@@ -814,7 +823,7 @@ I have added another column to the table which specifies the weight type. Rememb
 |                                            | Post Training Quantization Model     |          |      |                  |
 
 
-```python
+{% highlight python %}
 interpreter = tf.lite.Interpreter(model_content=quantization_aware_tflite_model_no_finetune)
 interpreter.allocate_tensors()
 
@@ -822,10 +831,12 @@ test_accuracy, inference_time = evaluate_model(interpreter)
 
 print(f'Test accuracy: {test_accuracy*100}%' )
 print(f'Average Inference Time per sample {inference_time} sec')
-```
+{% endhighlight %}
 
+{% highlight console %}
     Test accuracy: 91.71901770416905%
     Average Inference Time per sample 0.9346779042281538 sec
+{% endhighlight %}
 
 
 As you can see, there is very litle drop in accuracy from the quantized model and the actual model. This is because the model knew the quantization loss that would happen and learned to work around that loss.
@@ -847,21 +858,21 @@ In the previous section, we quantized the model that was trained using QAT.
 What about the accuracy of a model that was trained without QAT? Let's quantize the first model we trained.
 
 
-```python
+{% highlight python %}
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
 converter.optimizations = [tf.lite.Optimize.DEFAULT]
 
 normal_tflite_model_quantized = converter.convert()
-```
+{% endhighlight %}
 
+{% highlight console %}
     INFO:tensorflow:Assets written to: /tmp/tmp8pruzkuw/assets
-
-
     INFO:tensorflow:Assets written to: /tmp/tmp8pruzkuw/assets
+{% endhighlight %}
 
 
 
-```python
+{% highlight python %}
 interpreter = tf.lite.Interpreter(model_content=normal_tflite_model_quantized)
 interpreter.allocate_tensors()
 
@@ -869,10 +880,12 @@ test_accuracy, inference_time = evaluate_model(interpreter)
 
 print(f'Test accuracy: {test_accuracy*100}%' )
 print(f'Average Inference Time per sample {inference_time} sec')
-```
+{% endhighlight %}
 
+{% highlight console %}
     Test accuracy: 50.0856653340948%
     Average Inference Time per sample 0.04431839768100915 sec
+{% endhighlight %}
 
 
 As you can see, the accuracy of the model without QAT is much less.
@@ -889,20 +902,19 @@ As you can see, the accuracy of the model without QAT is much less.
 Now, let's see the accuracy of the normal model after converting to TFLite Format. Below, we omit setting the `converter.optimization`, so the model will not be quantized when storing.
 
 
-```python
+{% highlight python %}
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
-
 normal_tflite_model = converter.convert()
-```
+{% endhighlight %}
 
+{% highlight console %}
     INFO:tensorflow:Assets written to: /tmp/tmpnjyky5cr/assets
-
-
     INFO:tensorflow:Assets written to: /tmp/tmpnjyky5cr/assets
+{% endhighlight %}
 
 
 
-```python
+{% highlight python %}
 interpreter = tf.lite.Interpreter(model_content=normal_tflite_model)
 interpreter.allocate_tensors()
 
@@ -911,10 +923,12 @@ test_accuracy, inference_time = evaluate_model(interpreter)
 
 print(f'Test accuracy: {test_accuracy*100}%' )
 print(f'Average Inference Time per sample {inference_time} sec')
-```
+{% endhighlight %}
 
+{% highlight console %}
     Test accuracy: 81.21073672187322%
     Average Inference Time per sample 0.02834899897986586 sec
+{% endhighlight %}
 
 
 Since this model still uses the floating point weights, there is no accuracy drop.
@@ -936,7 +950,7 @@ Let's save the models we trained and compare the file sizes.
 We will first save the model with keras's `h5` format. We will also save the TFLite model with quantization and without quantization.
 
 
-```python
+{% highlight python %}
 model.save('main_model.h5')
 quantization_aware_model_finetune.save('quantization_aware_model_finetune.h5')
 quantization_aware_model_no_finetune.save('quantization_aware_model_no_finetune.h5')
@@ -951,8 +965,9 @@ with open("normal_tflite_model.tflite", "wb") as f:
     f.write(normal_tflite_model)
 
 !ls -lh *
-```
+{% endhighlight %}
 
+{% highlight console %}
     -rw-r--r-- 1 root root  12M May 11 06:06 main_model.h5
     -rw-r--r-- 1 root root 9.2M May 11 06:06 normal_tflite_model.tflite
     -rw-r--r-- 1 root root  29M May 11 06:06 quantization_aware_model_finetune.h5
@@ -968,6 +983,7 @@ with open("normal_tflite_model.tflite", "wb") as f:
     -rw-r--r-- 1 root root  18M May  4 16:26 mnist_test.csv
     -rw-r--r-- 1 root root  35M May  4 16:26 mnist_train_small.csv
     -rwxr-xr-x 1 root root  930 Jan  1  2000 README.md
+{% endhighlight %}
 
 
 The 'h5' model takes the most space. On the other hand, the quantized models takes up about 3.3x lesser space than the space of the normal TFLite model. Remember that the reduction is due to weights being stored in lower precision.
@@ -985,10 +1001,10 @@ The 'h5' model takes the most space. On the other hand, the quantized models tak
 If you want to load a model that was trained using QAT, you can do so by using `quantize_scope()`
 
 
-```python
+{% highlight python %}
 with tfmot.quantization.keras.quantize_scope():
   loaded_model = tf.keras.models.load_model('quantization_aware_model_finetune.h5')
-```
+{% endhighlight %}
 
 ### Some other PTQ
 
@@ -997,7 +1013,7 @@ So far we have been using only the `DEFAULT` optimization method. TFLite also pr
 Let's see the results when optimizing for size
 
 
-```python
+{% highlight python %}
 converter = tf.lite.TFLiteConverter.from_keras_model(loaded_model)
 converter.optimizations = [tf.lite.Optimize.OPTIMIZE_FOR_SIZE]
 tflite_size_optimized_quant_model = converter.convert()
@@ -1015,8 +1031,9 @@ with open("tflite_size_optimized_quant_model.tflite", "wb") as f:
     f.write(tflite_size_optimized_quant_model)
 
 !ls -lh tflite_size_optimized_quant_model.tflite
-```
+{% endhighlight %}
 
+{% highlight console %}
     INFO:tensorflow:Assets written to: /tmp/tmpe0rkxf6m/assets
 
 
@@ -1026,12 +1043,13 @@ with open("tflite_size_optimized_quant_model.tflite", "wb") as f:
     Test accuracy: 90.97658480868076%
     Average Inference Time per sample 0.9295434151153303 sec
     -rw-r--r-- 1 root root 2.8M May 11 06:34 tflite_size_optimized_quant_model.tflite
+{% endhighlight %}
 
 
 Now let's see the results when optimize for latency.
 
 
-```python
+{% highlight python %}
 converter = tf.lite.TFLiteConverter.from_keras_model(loaded_model)
 converter.optimizations = [tf.lite.Optimize.OPTIMIZE_FOR_LATENCY]
 tflite_latency_optimized_quant_model = converter.convert()
@@ -1048,8 +1066,9 @@ with open("tflite_latency_optimized_quant_model.tflite", "wb") as f:
     f.write(tflite_latency_optimized_quant_model)
 
 !ls -lh tflite_latency_optimized_quant_model.tflite
-```
+{% endhighlight %}
 
+{% highlight console %}
     INFO:tensorflow:Assets written to: /tmp/tmpuil2g1zv/assets
 
 
@@ -1059,6 +1078,7 @@ with open("tflite_latency_optimized_quant_model.tflite", "wb") as f:
     Test accuracy: 90.97658480868076%
     Average Inference Time per sample 0.9212308236355784 sec
     -rw-r--r-- 1 root root 2.8M May 11 07:01 tflite_latency_optimized_quant_model.tflite
+{% endhighlight %}
 
 
 So when using the `OPTIMIZE_FOR_SIZE` scheme, we don't see any changes in results. However, when using the `OPTIMIZE_FOR_LATENCY` scheme, the inference is slightly faster and there is no drop in accuracy.
