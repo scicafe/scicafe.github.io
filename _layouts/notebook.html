@@ -19,12 +19,7 @@
   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/css/rrssb.css">
 
-  <!-- <script src="{{ site.baseurl }}/scripts/jquery.js"></script> -->
   <!-- add jquery -->
-  <script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"></script>
   <link rel="canonical" href="{{ site.url }}" />
 </head>
 <body>
@@ -77,19 +72,19 @@
 
 
 <script src="{{ site.baseurl }}/scripts/rrssb.min.js"></script>
-<script src="{{ site.baseurl }}/scripts/highlighter.js"></script>
 <script src="{{ site.baseurl }}/scripts/hidenavbar.js"></script>
 
 
 
+<!--- Comments Section --------------------------------------->
+<script src="/scripts/jquery.min.js"></script>
+{% include comments.html element=".content" github_account="scicafe/scicafe.github.io" require_cookie_consent="false" %}
+<!--- Comments Section --------------------------------------->
 
 
 <!---Footer--------------------------------------->
-
-    {% include footer.html %}
-
+{% include footer.html %}
  <!--x-Footer-x------------------------------------->
-
 
 
 </body>

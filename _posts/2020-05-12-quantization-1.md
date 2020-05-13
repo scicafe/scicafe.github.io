@@ -7,9 +7,10 @@ read-time: 15 mins read
 description:
   Guide to Quantization and Quantization Aware Training using the TensorFlow Model Optimization Toolkit
 permalink: :title
-contributors: Soham, Vaidheeswaran Archana, Suriyadeepan 
-toc: true
+contributors: Soham Chatterjee, Vaidheeswaran Archana
+comment_issue_id: 15
 ---
+
 <a href="https://colab.research.google.com/drive/1-xiwp2s1Oir8sNh-Utnj60yAtpjwDaUr?usp=sharing" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 [<img src="/images/github_logo.png">](https://github.com/sci-eco/model-optimization)
