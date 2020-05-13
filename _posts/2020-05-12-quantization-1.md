@@ -202,6 +202,7 @@ model.fit(train_data, validation_data=validation_data, epochs=20, callbacks=[cal
 print("Testing Accuracy:", model.evaluate(test_data)[1])
 {% endhighlight %}
 
+{% highlight console %}
     Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/mobilenet_v2/mobilenet_v2_weights_tf_dim_ordering_tf_kernels_1.0_224_no_top.h5
     9412608/9406464 [==============================] - 0s 0us/step
     Epoch 1/20
@@ -216,6 +217,8 @@ print("Testing Accuracy:", model.evaluate(test_data)[1])
     438/438 [==============================] - 36s 82ms/step - loss: 0.2824 - accuracy: 0.8998 - val_loss: 0.5271 - val_accuracy: 0.8218
     55/55 [==============================] - 3s 49ms/step - loss: 0.5469 - accuracy: 0.8121
     Testing Accuracy: 0.8121073842048645
+
+{% endhighlight %}
 
 
 We got a testing accuracy of 81.09%. So let's fill that in our table
