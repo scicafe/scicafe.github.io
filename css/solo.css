@@ -181,9 +181,17 @@ pre, code {
   background-color: #f6f3ff9e;
 }
 
+/*code > .language-bash {
+  background-color: #cc1;
+}*/
+
 pre {
   padding: .5rem 1rem;
   font-size: 0.8rem;
+  white-space: pre;
+  overflow-x: auto;
+  max-height: 800px; /* Change to your desired max height */
+  overflow-y: scroll;
 }
 
 code {
