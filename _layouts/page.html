@@ -4,10 +4,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ site.title }}</title>
+  <title>{{ site.title}} | {{ page.title }}</title>
   <link rel="stylesheet" href="../css/normalize.css">
   <link rel="stylesheet" href="../css/solo.css">
   <link rel="stylesheet" href="../css/master.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/all.css">
 </head>
 <body>
 
@@ -17,19 +18,18 @@
 
    <!--x-Nav Bar-x------------------------------------->
 
-  <article>
-   <div class="container">
-    <h3>{{ page.title }}</h3>
+<br>
+<br>
+<br>
+<article>
+ <div class="container">
+  <h3>{{ page.title }}</h3>
 
-    {{ content }}
-     </div>
-   </article>
+  {{ content }}
+   </div>
+ </article>
 
-   <!---Footer--------------------------------------->
-
-       {% include footer.html %}
-
-    <!--x-Footer-x------------------------------------->
+{% include footer.html %}
 
 </body>
 </html>
