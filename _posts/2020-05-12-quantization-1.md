@@ -1126,7 +1126,7 @@ You can find a stripped down version of this blog, the associated code and the m
 
 To try out the code used in this blog yourself, you can use the associated [**Colab Notebook**](https://github.com/scicafe/model-optimization)
 
-To learn more about the authors, check out the [**About**](/about.html) Section.
+To learn more about our community, check out the [**About**](/about) Section.
 
 ### References
 
