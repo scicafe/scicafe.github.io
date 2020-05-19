@@ -12,9 +12,13 @@ html,body{
 }
 
 footer {
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
   height: 23px;
   background-color: #293043;
-  text-align: center;
   font-family: OpenSans-reg;
   font-size: 12px;
   color : #dedbe666;
