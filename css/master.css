@@ -318,7 +318,7 @@ h1 {
 /*------------Article----------------*/
 
 .container-head {
-  max-width: 55%;
+  max-width: 42%;
   margin: 0 auto;
   padding: 0 0.75rem;
 }
@@ -374,16 +374,6 @@ h1 {
 }
 
 
-@media only screen and (max-width:750px){
-
-  .container-head {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 0.75rem;
-  }
-}
-
-
 /*----x-------Article---------x------*/
 
 
@@ -435,6 +425,7 @@ color: var(--blue);
   .section-nav {
     display: none;
   }
+
 }
 
 
